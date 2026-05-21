@@ -55,6 +55,46 @@
         border: 0;
       }
 
+      /* --- TERMINAL STYLES --- */
+      .terminal-container {
+        width: 100%;
+        max-width: 560px;
+        background-color: #000;
+        color: #00ff00;
+        font-family: 'Courier New', Courier, monospace;
+        padding: 15px;
+        border-radius: 6px;
+        text-align: left;
+        box-sizing: border-box;
+        margin: 15px 0 20px 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      }
+      .terminal-output {
+        height: 120px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+        white-space: pre-wrap;
+        font-size: 14px;
+      }
+      .terminal-input-line {
+        display: flex;
+        align-items: center;
+      }
+      .terminal-prompt {
+        margin-right: 8px;
+        user-select: none;
+        font-size: 14px;
+      }
+      .terminal-input {
+        background: transparent;
+        border: none;
+        color: #00ff00;
+        font-family: inherit;
+        font-size: 14px;
+        width: 100%;
+        outline: none;
+      }
+
       /* Turns your link into a clean, modern dark gray button */
       .button {
         display: inline-block;
@@ -85,13 +125,25 @@
   </head>
   <body>
 
-    <!-- Main Section: Headers, Embedded YouTube Video, and Action Button -->
+    <!-- Main Section: Headers, Embedded YouTube Video, Terminal, and Action Button -->
     <div class="main-content">
       <h1>welcome to catos (im sorry if this page looks bad)</h1>
       <p>catos is a funny thing for your terminal that can run the commands listed and regular zsh commands</p>
       
       <!-- Video Embed -->
-     <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/0r_PkrEr7nA?si=T4sFczNgH89xh3HW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <div class="video-wrapper">
+         <iframe src="https://www.youtube-nocookie.com/embed/0r_PkrEr7nA?si=T4sFczNgH89xh3HW" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+
+      <!-- Interactive Terminal Simulator -->
+      <div class="terminal-container">
+        <div class="terminal-output" id="log">Welcome to WebTerminal v1.0
+Type a command to test the system...</div>
+        <div class="terminal-input-line">
+          <span class="terminal-prompt">user@terminal:~$</span>
+          <input type="text" class="terminal-input" id="cmdInput" autocomplete="off" spellcheck="false">
+        </div>
+      </div>
 
       <a href="https://github.com/redcat243/catos" class="button">Download Now!</a>
     </div>
@@ -101,7 +153,36 @@
       <p>&copy; 2026 onemeow inc. All Wrongs Reserved.</p>
     </footer>
 
+    <!-- Terminal Functionality Script -->
+    <script>
+      const cmdInput = document.getElementById('cmdInput');
+      const log = document.getElementById('log');
+
+      cmdInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          const command = cmdInput.value.trim();
+          if (command.length === 0) return;
+
+          // Append what the user typed
+          log.textContent += `\n\nuser@terminal:~$ ${command}`;
+          
+          // Print the custom install prompt response
+          log.textContent += `\nERROR: Command '${command}' not found. Did you mean to install CatOS? Please execute 'Download Now!' to patch your terminal framework structure.`;
+          
+          // Reset input box and snap scroll view to the bottom
+          cmdInput.value = '';
+          log.scrollTop = log.scrollHeight;
+        }
+      });
+
+      // Focus the input line if the user clicks anywhere inside the black box
+      document.querySelector('.terminal-container').addEventListener('click', () => {
+        cmdInput.focus();
+      });
+    </script>
+
   </body>
 </html>
+
 
 
