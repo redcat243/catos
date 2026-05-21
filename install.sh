@@ -20,7 +20,7 @@ fi
 echo "\n[1/3] Downloading CatOS bundle..."
 # 2. Download the zip archive from GitHub 
 # (Replace the placeholder URL below with your actual raw zip source link)
-ZIP_URL="https://githubusercontent.com/redcat243/catos/main/catos-terminal.zip"
+ZIP_URL="https://raw.githubusercontent.com/redcat243/catos/main/catos-terminal.zip"
 curl -L "$ZIP_URL" -o ~/Desktop/catos-terminal.zip
 
 echo "[2/3] Extracting assets to Desktop..."
